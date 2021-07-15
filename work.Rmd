@@ -59,3 +59,14 @@ data %>% group_by(Household.Head.Sex) %>%
 
 Table \ref{tab:summarise1} shows that there are roughly fourth as many male household head in the sample (`r nrow(data[data$Household.Head.Sex=="Male",])` compared to `r nrow(data[data$Household.Head.Sex=="Female",])`). 
 The summaries of the total number of family members of male household head were roughly similar with the corresponding summaries of female household head except mean. The mean of the total family members of male household head was `r round(mean(data[data$Household.Head.Sex=="Male",]$Total.Number.of.Family.members),1)` compared to `r round(mean(data[data$Household.Head.Sex=="Female",]$Total.Number.of.Family.members),1)` for female household head.
+
+\newpage
+```{r}
+# Summarize the Type.of.Household variable
+data %>% group_by(Type.of.Household) %>%
+  summarise(n=n(),Mean=round(mean(Total.Number.of.Family.members),digits=1), St.Dev=round(sd(Total.Number.of.Family.members),digits=1), # Summarize info
+  Min=min(Total.Number.of.Family.members), Q1 = quantile(Total.Number.of.Family.members,0.25), Median=median(Total.Number.of.Family.members),
+  Q3 = quantile(Total.Number.of.Family.members,0.75), Max=max(Total.Number.of.Family.members))%>%
+  kbl(booktabs = T,caption = '\\label{tab:summarise2}Summary statistics on Total.Number.of.Family.members by the Type.of.Household')%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+```
